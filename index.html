@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>2026年2月调休日历</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 60px;
+      background: linear-gradient(180deg, #f2f4f8, #e9ecf1);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+        "Microsoft YaHei", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    .calendar {
+      width: 920px;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+    }
+
+    .calendar-header {
+      padding: 36px 40px;
+      background: #111;
+      color: #fff;
+    }
+
+    .calendar-header h1 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .calendar-header p {
+      margin: 8px 0 0;
+      font-size: 16px;
+      opacity: 0.7;
+    }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+    }
+
+    .weekdays div {
+      padding: 18px 0;
+      text-align: center;
+      font-size: 15px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .day,
+    .empty {
+      height: 120px;
+      padding: 16px;
+      box-sizing: border-box;
+      border-right: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      position: relative;
+    }
+
+    .empty {
+      background: #fafafa;
+    }
+
+    .date-number {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111;
+    }
+
+    .adjust {
+      background: linear-gradient(135deg, #fff1f1, #ffe3e3);
+    }
+
+    .adjust::before {
+      content: "调休";
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #e53935;
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .adjust-name {
+      margin-top: 14px;
+      display: inline-block;
+      font-size: 14px;
+      padding: 6px 14px;
+      background: rgba(229, 57, 53, 0.1);
+      color: #c62828;
+      border-radius: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar">
+    <div class="calendar-header">
+      <h1>2026 年 2 月</h1>
+      <p>调休安排公示</p>
+    </div>
+
+    <div class="weekdays">
+      <div>星期日</div>
+      <div>星期一</div>
+      <div>星期二</div>
+      <div>星期三</div>
+      <div>星期四</div>
+      <div>星期五</div>
+      <div>星期六</div>
+    </div>
+
+    <div class="days" id="days"></div>
+  </div>
+
+  <script>
+    const year = 2026;
+    const month = 1; // 2月
+    const daysEl = document.getElementById("days");
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+
+    const adjustDays = [9, 10, 11, 12, 13, 14];
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      daysEl.appendChild(empty);
+    }
+
+    for (let d = 1; d <= totalDays; d++) {
+      const cell = document.createElement("div");
+      cell.className = "day";
+
+      if (adjustDays.includes(d)) {
+        cell.classList.add("adjust");
+        cell.innerHTML = `
+          <div class="date-number">${d}</div>
+          <div class="adjust-name">阳阳</div>
+        `;
+      } else {
+        cell.innerHTML = `<div class="date-number">${d}</div>`;
+      }
+
+      daysEl.appendChild(cell);
+    }
+  </script>
+</body>
+</html>
